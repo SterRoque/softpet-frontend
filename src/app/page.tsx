@@ -1,3 +1,21 @@
+import { Input } from '@/components/Input';
+
 export default function Home() {
-  return <div className="text-red-500">hello world</div>;
+   return (
+      <div className='h-screen bg-black'>
+         <Input
+            label='Email'
+            placeholder='email'
+            icon='collar'
+         />
+         <Input
+            label='Senha'
+            placeholder='senha'
+         />
+         <Input
+            label='Data de Nascimento'
+            type='date'
+         />
+      </div>
+   );
 }
