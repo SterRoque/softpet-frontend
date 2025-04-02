@@ -1,5 +1,16 @@
 @import 'tailwindcss';
 
+@utility {
+   .border-gradient {
+      border: double 3px transparent !important;
+      background-image:
+         linear-gradient(to top left, #030712, #001e4d),
+         linear-gradient(to right, #22d3ee, #1e40af);
+      background-origin: border-box;
+      background-clip: content-box, border-box;
+   }
+}
+
 @layer utilities {
    .custom-date-input::-webkit-calendar-picker-indicator {
       display: none;
