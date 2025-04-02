@@ -3,6 +3,8 @@
 import { Button } from '@/components/button';
 import { Input } from '@/components/input';
 import { InputSpecies, TSpecies } from '@/components/input-species';
+import { PetAccordion } from '@/components/pet-accordion';
+import { pets } from '@/constant/pet';
 import { useState } from 'react';
 
 export default function Home() {
@@ -32,14 +34,17 @@ export default function Home() {
             icon='add'
             variant='PRIMARY'
          />
-         <Button
-            icon='add'
-            variant='SECONDARY'
-         />
+         <Button variant='SECONDARY' />
          <Button
             icon='add'
             variant='TERTIARY'
          />
+         {pets.map((pet) => (
+            <PetAccordion
+               pet={pet}
+               key={pet.id}
+            />
+         ))}
       </div>
    );
 }
