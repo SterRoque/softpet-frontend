@@ -7,7 +7,7 @@ type InputProps = InputHTMLAttributes<HTMLInputElement> & {
    icon?: string;
 };
 
-export function Input({ label, icon, type, ...rest }: InputProps) {
+export function Input({ label, icon, type, disabled, ...rest }: InputProps) {
    const inputRef = useRef<HTMLInputElement>(null);
 
    return (
@@ -23,9 +23,11 @@ export function Input({ label, icon, type, ...rest }: InputProps) {
          <input
             ref={inputRef}
             type={type}
+            disabled={disabled}
             onClick={() => type === 'date' && inputRef.current?.showPicker()}
             className={cn(
                'h-[39px] w-full max-w-[231px] rounded-[10px] border-[3px] border-gray-700 bg-transparent px-3 text-white placeholder:text-gray-700 focus:outline-none focus-visible:border-white',
+               disabled && 'bg-gray-700',
                type === 'date' && 'custom-date-input cursor-pointer',
             )}
             {...rest}
