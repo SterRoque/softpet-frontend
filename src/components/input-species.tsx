@@ -18,11 +18,13 @@ export function InputSpecies({
    return (
       <div>
          <div className={cn('mb-2 flex items-center gap-2')}>
-            <img
-               src={`icons/${icon}.svg`}
-               alt={`imagem ${icon}`}
-               className={cn(icon ? 'h-4 w-4' : 'hidden')}
-            />
+            {icon && (
+               <img
+                  src={`icons/${icon}.svg`}
+                  alt={`imagem ${icon}`}
+                  className={cn(icon ? 'h-4 w-4' : 'hidden')}
+               />
+            )}
             <label className='text-base text-white'>{label}</label>
          </div>
 
