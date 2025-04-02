@@ -29,8 +29,8 @@ export function InputSpecies({
          <div className='flex w-full max-w-[231px] gap-2'>
             <div
                className={cn(
-                  'flex h-[39px] w-1/2 cursor-pointer items-center gap-2 rounded-[10px] border-[3px] border-gray-700 bg-transparent px-3 text-white placeholder:text-gray-700 focus:outline-none focus-visible:border-white',
-                  value === 'DOG' && 'border-white',
+                  'flex h-[39px] w-1/2 cursor-pointer items-center gap-2 rounded-[10px] border-[3px] border-gray-700 bg-transparent px-3 text-gray-700',
+                  value === 'DOG' && 'border-white text-white',
                )}
                onClick={() => onChange('DOG')}>
                <img
@@ -42,8 +42,8 @@ export function InputSpecies({
             </div>
             <div
                className={cn(
-                  'flex h-[39px] w-1/2 cursor-pointer items-center gap-2 rounded-[10px] border-[3px] border-gray-700 bg-transparent px-3 text-white placeholder:text-gray-700 focus:outline-none focus-visible:border-white',
-                  value === 'CAT' && 'border-white',
+                  'text-gray-700focus-visible:border-white flex h-[39px] w-1/2 cursor-pointer items-center gap-2 rounded-[10px] border-[3px] border-gray-700 bg-transparent px-3 text-gray-700',
+                  value === 'CAT' && 'border-white text-white',
                )}
                onClick={() => onChange('CAT')}>
                <img
