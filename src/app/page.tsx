@@ -1,6 +1,12 @@
-import { Input } from '@/components/Input';
+'use client';
+
+import { Input } from '@/components/input';
+import { InputSpecies, TSpecies } from '@/components/input-species';
+import { useState } from 'react';
 
 export default function Home() {
+   const [selectedSpecie, setSelectedSpecie] = useState<TSpecies>('DOG');
+
    return (
       <div className='h-screen bg-black'>
          <Input
@@ -15,6 +21,11 @@ export default function Home() {
          <Input
             label='Data de Nascimento'
             type='date'
+         />
+
+         <InputSpecies
+            value={selectedSpecie}
+            onChange={setSelectedSpecie}
          />
       </div>
    );
