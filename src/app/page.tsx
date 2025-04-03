@@ -4,6 +4,7 @@ import { Button } from '@/components/button';
 import { Input } from '@/components/input';
 import { InputSpecies, TSpecies } from '@/components/input-species';
 import { PetAccordion } from '@/components/pet-accordion';
+import { SearchBar } from '@/components/search-bar';
 import { pets } from '@/constant/pet';
 import { useState } from 'react';
 
@@ -26,6 +27,7 @@ export default function Home() {
             type='date'
          />
 
+         <SearchBar />
          <InputSpecies
             value={selectedSpecie}
             onChange={setSelectedSpecie}
