@@ -1,5 +1,14 @@
 @import 'tailwindcss';
 
+body {
+   background:
+      radial-gradient(circle at -10% 5%, #00204f 5%, transparent 38%),
+      radial-gradient(circle at 95% 118%, #0066ff -50%, transparent 17%);
+   background-color: #02050a;
+   height: 100vh;
+   margin: 0;
+}
+
 @utility border-gradient {
    border: double 3px transparent !important;
    background-image:

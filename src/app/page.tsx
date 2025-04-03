@@ -15,7 +15,7 @@ export default function Home() {
    const [selectedSpecie, setSelectedSpecie] = useState<TSpecies>('DOG');
 
    return (
-      <div className='h-screen bg-green-800'>
+      <div className='h-screen'>
          <Input
             label='Email'
             placeholder='email'
