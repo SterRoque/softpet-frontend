@@ -110,7 +110,12 @@ export function PetModal({
                            />
                         </div>
                      </div>
-                     <div className='flex gap-8'>
+                     {variant === 'DELETE' && (
+                        <h1 className='text-center font-bold text-white'>
+                           Tem certeza que deseja remover esse pet?
+                        </h1>
+                     )}
+                     <div className='mt-10 flex gap-8'>
                         <Button
                            onClick={onClose}
                            icon='arrow-back'
