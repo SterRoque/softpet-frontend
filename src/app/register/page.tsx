@@ -10,12 +10,12 @@ export default function RegisterPage() {
             className={cn(
                'border-gradient flex w-full max-w-[618px] flex-col justify-center gap-[18px] self-center rounded-[10px] bg-linear-to-tl from-gray-950 to-[#001E4D] shadow-[0_0_30px_#0056E280]',
             )}>
-            <div className='px-16 pt-16 pb-[85px]'>
-               <h1 className='mb-14 text-[30px] font-bold text-white'>
+            <div className='px-[94px] pt-16 pb-[85px] md:px-16'>
+               <h1 className='mb-14 text-center text-[30px] font-bold text-white md:text-left'>
                   Cadastre-se
                </h1>
 
-               <div className='flex gap-[30px]'>
+               <div className='flex flex-col gap-[30px] md:flex-row'>
                   <div className='flex flex-col gap-3.5'>
                      <Input
                         label='Nome'
