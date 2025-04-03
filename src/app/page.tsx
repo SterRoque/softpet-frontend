@@ -1,6 +1,7 @@
 'use client';
 
 import { Button } from '@/components/button';
+import { CurrentAdmin } from '@/components/current-admin';
 import { Input } from '@/components/input';
 import { InputSpecies, TSpecies } from '@/components/input-species';
 import { Pagination } from '@/components/pagination';
@@ -31,6 +32,7 @@ export default function Home() {
             page={1}
             totalPages={240}
          />
+         <CurrentAdmin name='Ster' />
 
          <SearchBar />
          <InputSpecies
