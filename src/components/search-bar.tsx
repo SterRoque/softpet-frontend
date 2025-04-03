@@ -2,7 +2,7 @@ import { InputHTMLAttributes } from 'react';
 
 export function SearchBar({ ...rest }: InputHTMLAttributes<HTMLInputElement>) {
    return (
-      <div className='flex h-[50px]'>
+      <div className='flex h-[50px] w-full'>
          <div className='flex h-full w-11 items-center justify-center rounded-l-[10px] bg-[#404A5C]'>
             <img
                src='icons/search.svg'
