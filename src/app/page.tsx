@@ -7,9 +7,9 @@ import { pets } from '@/constant/pet';
 
 export default function Home() {
    return (
-      <main>
+      <main className='relative min-h-full'>
          <Header />
-         <div className='mt-3 h-full w-full px-8 md:px-[55px]'>
+         <div className='h-[calc(100svh-5rem)] w-full px-8 pt-3 md:px-[55px]'>
             <div className='mb-9 flex flex-col items-center gap-[22px] md:flex-row'>
                <SearchBar />
                <div className='w-full md:w-1/6'>
@@ -26,7 +26,7 @@ export default function Home() {
                ))}
             </div>
 
-            <div className='mt-7 hidden h-full w-full justify-end md:flex'>
+            <div className='absolute right-[55px] bottom-4 hidden md:block'>
                <Pagination
                   page={1}
                   totalPages={245}
