@@ -9,8 +9,8 @@ export default function Home() {
    return (
       <main className='relative min-h-full'>
          <Header />
-         <div className='h-[calc(100svh-5rem)] w-full px-8 pt-3 md:px-[55px]'>
-            <div className='mb-9 flex flex-col items-center gap-[22px] md:flex-row'>
+         <div className='h-[calc(100svh-5rem)] w-full px-8 md:px-[55px]'>
+            <div className='mb-9 flex flex-col items-center gap-[22px] pt-2 md:flex-row'>
                <SearchBar />
                <div className='w-full md:w-1/6'>
                   <Button icon='add'>Cadastrar</Button>
