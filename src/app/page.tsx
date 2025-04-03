@@ -6,6 +6,7 @@ import { Input } from '@/components/input';
 import { InputSpecies, TSpecies } from '@/components/input-species';
 import { Pagination } from '@/components/pagination';
 import { PetAccordion } from '@/components/pet-accordion';
+import { PetModal } from '@/components/pet-modal';
 import { SearchBar } from '@/components/search-bar';
 import { pets } from '@/constant/pet';
 import { useState } from 'react';
@@ -14,7 +15,7 @@ export default function Home() {
    const [selectedSpecie, setSelectedSpecie] = useState<TSpecies>('DOG');
 
    return (
-      <div className='h-screen bg-black'>
+      <div className='h-screen bg-green-800'>
          <Input
             label='Email'
             placeholder='email'
@@ -33,6 +34,7 @@ export default function Home() {
             totalPages={240}
          />
          <CurrentAdmin name='Ster' />
+         <PetModal isOpen={true} />
 
          <SearchBar />
          <InputSpecies

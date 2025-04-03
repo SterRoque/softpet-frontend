@@ -3,7 +3,7 @@ import { cn } from '@/utils/cn';
 export type TSpecies = 'DOG' | 'CAT';
 
 type InputSpeciesProps = {
-   value: TSpecies;
+   value?: TSpecies;
    onChange: (value: TSpecies) => void;
    icon?: string;
    label?: string;
