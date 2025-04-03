@@ -3,6 +3,7 @@
 import { Button } from '@/components/button';
 import { Input } from '@/components/input';
 import { InputSpecies, TSpecies } from '@/components/input-species';
+import { Pagination } from '@/components/pagination';
 import { PetAccordion } from '@/components/pet-accordion';
 import { SearchBar } from '@/components/search-bar';
 import { pets } from '@/constant/pet';
@@ -25,6 +26,10 @@ export default function Home() {
          <Input
             label='Data de Nascimento'
             type='date'
+         />
+         <Pagination
+            page={1}
+            totalPages={240}
          />
 
          <SearchBar />
