@@ -30,15 +30,7 @@ export default function Home() {
             value={selectedSpecie}
             onChange={setSelectedSpecie}
          />
-         <Button
-            icon='add'
-            variant='PRIMARY'
-         />
-         <Button variant='SECONDARY' />
-         <Button
-            icon='add'
-            variant='TERTIARY'
-         />
+
          {pets.map((pet) => (
             <PetAccordion
                pet={pet}

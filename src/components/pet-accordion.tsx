@@ -13,40 +13,44 @@ export function PetAccordion({ pet }: PetAccordionProps) {
    const [isOpen, setIsOpen] = useState(false);
    return (
       <div
-         className='w-full max-w-[300px] text-white'
+         className='w-full max-w-[320px] text-white'
          onClick={() => setIsOpen(!isOpen)}>
          <div
             className={cn(
                'hover:border-gradient flex h-24 w-full cursor-pointer items-center justify-center gap-[18px] rounded-[10px] bg-linear-to-tl from-gray-950 to-[#001E4D]',
                isOpen && 'border-gradient',
             )}>
-            <div className='flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-r from-cyan-400 to-blue-700'>
-               <img
-                  src='icons/cat.svg'
-                  alt=''
-               />
-            </div>
-            <div>
-               <div className='flex gap-2.5'>
+            <div className='flex gap-[18px]'>
+               <div className='flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-r from-cyan-400 to-blue-700'>
                   <img
-                     src='icons/collar.svg'
-                     alt='collar'
-                  />
-                  <span>{pet.name}</span>
-               </div>
-               <div className='flex gap-2.5'>
-                  <img
-                     src='icons/user.svg'
+                     src='icons/cat.svg'
                      alt=''
                   />
-                  <span>{pet.owner.name}</span>
+               </div>
+               <div className='flex w-[150px] flex-col justify-center'>
+                  <div className='flex gap-2.5'>
+                     <img
+                        src='icons/collar.svg'
+                        alt='collar'
+                     />
+                     <span>{pet.name}</span>
+                  </div>
+                  <div className='flex gap-2.5'>
+                     <img
+                        src='icons/user.svg'
+                        alt=''
+                     />
+                     <span>{pet.owner.name}</span>
+                  </div>
+               </div>
+               <div className='flex w-12 justify-center'>
+                  <img
+                     src={`icons/${isOpen ? 'arrow-up' : 'arrow-down'}.svg`}
+                     alt=''
+                     className='w-5 cursor-pointer'
+                  />
                </div>
             </div>
-            <img
-               src={`icons/${isOpen ? 'arrow-up' : 'arrow-down'}.svg`}
-               alt=''
-               className='w-5 cursor-pointer'
-            />
          </div>
          <AnimatePresence>
             {isOpen && (
