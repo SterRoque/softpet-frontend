@@ -8,5 +8,5 @@ type TPetStore = {
 
 export const usePetStore = create<TPetStore>()((set) => ({
    pets: [],
-   setPets: () => set((state) => ({ pets: state.pets })),
+   setPets: (newPets) => set({ pets: newPets }),
 }));
