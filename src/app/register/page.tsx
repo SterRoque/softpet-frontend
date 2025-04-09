@@ -21,8 +21,8 @@ export default function RegisterPage() {
                   Cadastre-se
                </h1>
 
-               <div className='flex flex-col gap-[30px] md:flex-row'>
-                  <div className='flex flex-col gap-3.5'>
+               <div className='flex flex-col gap-3.5'>
+                  <div className='flex gap-[30px]'>
                      <Input
                         name='first_name'
                         label='Nome'
@@ -30,18 +30,18 @@ export default function RegisterPage() {
                         required
                      />
                      <Input
+                        name='last_name'
+                        label='Sobrenome'
+                        placeholder='Sobrenome'
+                        required
+                     />
+                  </div>
+                  <div className='flex gap-[30px]'>
+                     <Input
                         name='email'
                         label='Email'
                         placeholder='Email'
                         type='email'
-                        required
-                     />
-                  </div>
-                  <div className='flex flex-col gap-3.5'>
-                     <Input
-                        name='last_name'
-                        label='Sobrenome'
-                        placeholder='Sobrenome'
                         required
                      />
                      <Input
