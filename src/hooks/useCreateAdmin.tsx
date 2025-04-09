@@ -8,7 +8,6 @@ import { useServerAction } from 'zsa-react';
 export function useCreateAdmin() {
    const {
       execute: executeCreateAdminAction,
-      data: response,
       error: errorZod,
       isPending,
       reset,
@@ -19,8 +18,6 @@ export function useCreateAdmin() {
    const createAdmin = useCallback(
       async (event: FormEvent<HTMLFormElement>) => {
          event.preventDefault();
-
-         reset();
 
          const formData = new FormData(event.currentTarget);
 
