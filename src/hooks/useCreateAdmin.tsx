@@ -42,7 +42,7 @@ export function useCreateAdmin() {
             router.replace('/login');
          }
       },
-      [response],
+      [],
    );
 
    return {
