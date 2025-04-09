@@ -57,5 +57,5 @@ export async function signOutAction() {
 
    cookiesStore.delete('token');
 
-   redirect('/login', RedirectType.replace);
+   redirect('/', RedirectType.replace);
 }

@@ -25,7 +25,7 @@ export function useAuthAdmin() {
          }
       }
 
-      router.replace('/');
+      router.replace('/home');
    }, []);
 
    return {

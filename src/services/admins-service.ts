@@ -7,8 +7,13 @@ export async function createAdminService(data: TCreateAdminSchema) {
    return api.post('/admins', data);
 }
 
-export async function getCurrentAdminService() {
-   return api.get<IAdmin>('/admins');
+export async function getCurrentAdminService(): Promise<IAdmin | null> {
+   try {
+      const { data } = await api.get<IAdmin>('/admins');
+      return data;
+   } catch (error) {
+      return null;
+   }
 }
 
 export async function authAdminService(data: TAuthAdminSchema) {

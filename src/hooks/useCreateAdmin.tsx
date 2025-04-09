@@ -36,7 +36,7 @@ export function useCreateAdmin() {
 
          if (res?.status === HttpStatusCode.Created) {
             toast.success('Administrador cadastrado com sucesso!');
-            router.replace('/login');
+            router.replace('/');
          }
       },
       [],
