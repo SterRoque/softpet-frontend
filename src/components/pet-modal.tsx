@@ -71,18 +71,21 @@ export function PetModal({
                      <div className='mb-10 flex flex-col gap-8 md:flex-row'>
                         <div className='flex flex-col gap-3.5'>
                            <Input
+                              name='name'
                               label='Nome'
                               icon='collar'
                               placeholder='Nome Sobrenome'
                               disabled={variant === 'DELETE'}
                            />
                            <Input
+                              name='owner'
                               label='Dono'
                               icon='user'
                               placeholder='Nome Sobrenome'
                               disabled={variant === 'DELETE'}
                            />
                            <Input
+                              name='phone'
                               label='Telefone'
                               icon='phone'
                               placeholder='(00) 0 0000-0000'
@@ -97,12 +100,14 @@ export function PetModal({
                               label='Animal'
                            />
                            <Input
+                              name='breed'
                               label='Raça'
                               icon='dna'
                               placeholder='Raça'
                               disabled={variant === 'DELETE'}
                            />
                            <Input
+                              name='birthDate'
                               label='Data de Nascimento'
                               icon='calendar'
                               type='date'

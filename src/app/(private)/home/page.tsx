@@ -1,19 +1,27 @@
+'use client';
+
 import { Button } from '@/components/button';
-import { Header } from '@/components/header';
 import { Pagination } from '@/components/pagination';
 import { PetAccordion } from '@/components/pet-accordion';
+import { PetModal } from '@/components/pet-modal';
 import { SearchBar } from '@/components/search-bar';
 import { pets } from '@/constant/pet';
+import { useState } from 'react';
 
 export default function Home() {
+   const [isOpenPetModal, setIsOpenPetModal] = useState(false);
+
    return (
       <main className='relative min-h-full'>
-         <Header />
          <div className='h-[calc(100svh-5rem)] w-full px-8 md:px-[55px]'>
             <div className='mb-9 flex flex-col items-center gap-[22px] pt-2 md:flex-row'>
                <SearchBar />
                <div className='w-full md:w-1/6'>
-                  <Button icon='add'>Cadastrar</Button>
+                  <Button
+                     icon='add'
+                     onClick={() => setIsOpenPetModal(true)}>
+                     Cadastrar
+                  </Button>
                </div>
             </div>
 
@@ -33,6 +41,11 @@ export default function Home() {
                />
             </div>
          </div>
+
+         <PetModal
+            isOpen={isOpenPetModal}
+            onClose={() => setIsOpenPetModal(false)}
+         />
       </main>
    );
 }
