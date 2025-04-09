@@ -34,13 +34,14 @@ export default function LoginPage() {
                         name='password'
                         label='Senha'
                         placeholder='Senha'
+                        type='password'
                         required
                      />
                   </div>
                </div>
 
                <div className='mt-14 w-full'>
-                  <Button>Cadastrar</Button>
+                  <Button>Entrar</Button>
                </div>
             </div>
          </form>
