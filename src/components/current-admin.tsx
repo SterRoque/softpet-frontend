@@ -1,5 +1,6 @@
 'use client';
 
+import { signOutAction } from '@/actions/admin-actions';
 import { useState } from 'react';
 
 type CurrentAdminProps = {
@@ -29,7 +30,9 @@ export function CurrentAdmin({ name }: CurrentAdminProps) {
          </div>
 
          {isOpen && (
-            <div className='relative mt-1 h-10 cursor-pointer rounded-[10px] bg-linear-to-tl from-gray-950 to-[#001E4D] px-3 py-2 font-medium text-white'>
+            <div
+               className='relative mt-1 h-10 cursor-pointer rounded-[10px] bg-linear-to-tl from-gray-950 to-[#001E4D] px-3 py-2 font-medium text-white'
+               onClick={signOutAction}>
                Sair
                <img
                   src='icons/exit.svg'
