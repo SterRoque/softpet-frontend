@@ -3,11 +3,11 @@
 import { createAdminAction } from '@/actions/admin-actions';
 import { Button } from '@/components/button';
 import { Input } from '@/components/input';
-import { useAdmin } from '@/hooks/useAdmin';
+import { useCreateAdmin } from '@/hooks/useCreateAdmin';
 import { cn } from '@/utils/cn';
 
 export default function RegisterPage() {
-   const { createAdmin, isPending, errorZod } = useAdmin();
+   const { createAdmin, isPending, errorZod } = useCreateAdmin();
 
    return (
       <main className='flex h-screen items-center justify-center'>

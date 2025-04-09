@@ -5,7 +5,7 @@ import { FormEvent, useCallback } from 'react';
 import { toast } from 'react-toastify';
 import { useServerAction } from 'zsa-react';
 
-export function useAdmin() {
+export function useCreateAdmin() {
    const {
       execute: executeCreateAdminAction,
       data: response,
