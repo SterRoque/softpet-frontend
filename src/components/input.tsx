@@ -19,7 +19,7 @@ export function Input({
    const inputRef = useRef<HTMLInputElement>(null);
 
    return (
-      <div className='flex w-full max-w-[231px] flex-col'>
+      <div className='flex w-full flex-col'>
          <div className={cn('mb-2 flex items-center gap-2')}>
             {icon && (
                <img
