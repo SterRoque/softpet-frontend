@@ -37,7 +37,7 @@ export function PetModal({
       <AnimatePresence>
          {isOpen && (
             <div
-               className='fixed inset-0 z-40 flex items-center justify-center bg-[#00000080]'
+               className='fixed inset-0 z-50 flex items-center justify-center bg-[#00000080]'
                onClick={onClose}>
                <motion.div
                   initial={{ opacity: 0, scale: 0.95 }}
@@ -68,7 +68,7 @@ export function PetModal({
                         />
                      </div>
 
-                     <div className='mb-10 flex gap-8'>
+                     <div className='mb-10 flex flex-col gap-8 md:flex-row'>
                         <div className='flex flex-col gap-3.5'>
                            <Input
                               label='Nome'
