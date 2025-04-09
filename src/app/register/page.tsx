@@ -7,7 +7,7 @@ import { useAdmin } from '@/hooks/useAdmin';
 import { cn } from '@/utils/cn';
 
 export default function RegisterPage() {
-   const { createAdmin, isPending } = useAdmin();
+   const { createAdmin, isPending, errorZod } = useAdmin();
 
    return (
       <main className='flex h-screen items-center justify-center'>
@@ -50,6 +50,7 @@ export default function RegisterPage() {
                         placeholder='Senha'
                         type='password'
                         required
+                        error={errorZod?.password![0]}
                      />
                   </div>
                </div>

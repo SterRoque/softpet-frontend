@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import { Ubuntu } from 'next/font/google';
+import { ToastContainer } from 'react-toastify';
 
 const ubuntu = Ubuntu({
    weight: ['400', '500', '700'],
@@ -21,7 +22,10 @@ export default function RootLayout({
       <html
          lang='en'
          className={ubuntu.className}>
-         <body>{children}</body>
+         <body>
+            <ToastContainer />
+            {children}
+         </body>
       </html>
    );
 }

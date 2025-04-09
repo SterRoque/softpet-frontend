@@ -1,26 +1,54 @@
 import { createAdminAction } from '@/actions/admin-actions';
-import { createAdminService } from '@/services/admins-service';
-import { FormEvent, useTransition } from 'react';
+import { HttpStatusCode } from 'axios';
+import { useRouter } from 'next/navigation';
+import { FormEvent, useCallback } from 'react';
+import { toast } from 'react-toastify';
+import { useServerAction } from 'zsa-react';
 
 export function useAdmin() {
-   const [isPending, startTransition] = useTransition();
+   const {
+      execute: executeCreateAdminAction,
+      data: response,
+      error: errorZod,
+      isPending,
+      reset,
+   } = useServerAction(createAdminAction);
 
-   async function createAdmin(event: FormEvent<HTMLFormElement>) {
-      event.preventDefault();
+   const router = useRouter();
 
-      startTransition(async () => {
+   const createAdmin = useCallback(
+      async (event: FormEvent<HTMLFormElement>) => {
+         event.preventDefault();
+
+         reset();
+
          const formData = new FormData(event.currentTarget);
 
-         const response = await createAdminAction(formData);
+         const [res] = await executeCreateAdminAction(formData);
 
-         console.log({
-            response,
-         });
-      });
-   }
+         if (res?.error) {
+            if (res?.status === HttpStatusCode.Conflict) {
+               toast.error('Administrador já cadastrado!');
+               return;
+            }
+
+            toast.error('Houve um erro ao cadastrar administrador.');
+
+            return;
+         }
+
+         if (res?.status === HttpStatusCode.Created) {
+            toast.success('Administrador cadastrado com sucesso!');
+            router.replace('/login');
+         }
+      },
+      [response],
+   );
 
    return {
       createAdmin,
       isPending,
+      errorZod: errorZod?.fieldErrors,
+      reset,
    };
 }
