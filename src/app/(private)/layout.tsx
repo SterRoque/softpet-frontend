@@ -1,5 +1,6 @@
 'use server';
 
+import { Header } from '@/components/header';
 import { getCurrentAdminService } from '@/services/admins-service';
 import { redirect } from 'next/navigation';
 
@@ -14,5 +15,10 @@ export default async function RootLayout({
       return redirect('/');
    }
 
-   return children;
+   return (
+      <>
+         <Header />
+         {children}
+      </>
+   );
 }
