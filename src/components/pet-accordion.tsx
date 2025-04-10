@@ -4,6 +4,9 @@ import { Button } from './button';
 import { cn } from '@/utils/cn';
 import { AnimatePresence, motion } from 'framer-motion';
 import { IPet } from '@/interfaces/pet-interface';
+import { formatDate } from '@/utils/format-date';
+import { calculateAge } from '@/utils/calculate-age';
+import { formatPhoneNumber } from '@/utils/format-phone-number';
 
 type PetAccordionProps = {
    pet: IPet;
@@ -83,14 +86,19 @@ export function PetAccordion({ pet }: PetAccordionProps) {
                            src='icons/phone.svg'
                            alt=''
                         />
-                        <span>Telefone: {pet.owner.phone}</span>
+                        <span>
+                           Telefone: {formatPhoneNumber(pet.owner.phone)}
+                        </span>
                      </div>
                      <div className='flex gap-[8px]'>
                         <img
                            src='icons/calendar.svg'
                            alt=''
                         />
-                        <span>Idade: 2 anos {pet.birthday_date}</span>
+                        <span>
+                           Idade: {calculateAge(pet.birthday_date)}{' '}
+                           {formatDate(pet.birthday_date)}
+                        </span>
                      </div>
                   </div>
 
