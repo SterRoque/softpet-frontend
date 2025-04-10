@@ -10,7 +10,6 @@ export function useCreatePet() {
       error: errorZod,
       data,
       isPending,
-      setOptimistic,
    } = useServerAction(createPetAction);
 
    const createPet = useCallback(async (event: FormEvent<HTMLFormElement>) => {
@@ -19,8 +18,6 @@ export function useCreatePet() {
       const formData = new FormData(event.currentTarget);
 
       const [response] = await executeCreatePetAction(formData);
-
-      console.log(response?.data);
 
       if (response?.error) {
          if (response?.error.message === 'Phone already exists!') {
