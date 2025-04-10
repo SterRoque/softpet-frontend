@@ -26,3 +26,7 @@ export async function updatePetService(data: TUpdatePetSchema) {
       id: undefined,
    });
 }
+
+export async function deletePetService(id: string) {
+   return await api.delete(`/pets/${id}`);
+}
