@@ -7,6 +7,7 @@ type InputSpeciesProps = {
    onChange: (value: TSpecies) => void;
    icon?: string;
    label?: string;
+   name?: string;
 };
 
 export function InputSpecies({
@@ -14,6 +15,7 @@ export function InputSpecies({
    onChange,
    icon,
    label,
+   name,
 }: InputSpeciesProps) {
    return (
       <div>
@@ -55,6 +57,11 @@ export function InputSpecies({
                />
                <span>Gato</span>
             </div>
+            <input
+               type='hidden'
+               name={name}
+               value={value}
+            />
          </div>
       </div>
    );
