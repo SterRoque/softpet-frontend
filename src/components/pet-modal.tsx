@@ -5,18 +5,13 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { Button } from './button';
 import { Input } from './input';
 import { InputSpecies } from './input-species';
-import { useEffect } from 'react';
-import { useCreatePet } from '@/hooks/useCreatePet';
-import { HttpStatusCode } from 'axios';
-import { formatPhoneInput } from '@/utils/format-phone-input';
-import { useUpdatePet } from '@/hooks/useUpdatePet';
 import { IPet } from '@/interfaces/pet-interface';
-import { useDeletePet } from '@/hooks/useDeletePet';
+import { TVariant, usePetModalComponent } from '@/hooks/usePetModalComponent';
 
 type PetModalProps = {
    isOpen: boolean;
    onClose?: () => void;
-   variant?: 'CREATE' | 'UPDATE' | 'DELETE';
+   variant: TVariant;
    pet?: IPet | null;
 };
 
@@ -26,47 +21,11 @@ export function PetModal({
    variant = 'CREATE',
    pet,
 }: PetModalProps) {
-   const { createPet, isPending, data } = useCreatePet();
-   const { updatePet, isPendingUpdatePet, dataUpdatePet } = useUpdatePet(
-      pet?.id,
-   );
-   const { deletePet, isPendingDeletePet, dataDeletePet } = useDeletePet();
-
-   const variants = {
-      CREATE: {
-         name: 'Cadastrar',
-         icon: 'add',
-      },
-      UPDATE: {
-         name: 'Editar',
-         icon: 'edit',
-      },
-      DELETE: {
-         name: 'Remover',
-         icon: 'trash',
-      },
-   };
-
-   useEffect(() => {
-      if (
-         data?.status === HttpStatusCode.Created ||
-         dataUpdatePet?.status === HttpStatusCode.Ok ||
-         dataDeletePet?.status === HttpStatusCode.Ok
-      ) {
-         onClose?.();
-      }
-   }, [data?.status, dataUpdatePet?.status, dataDeletePet?.status]);
-
-   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-      e.preventDefault();
-      if (variant === 'DELETE' && pet?.id) {
-         deletePet(pet.id);
-      } else if (variant === 'CREATE') {
-         createPet(e);
-      } else if (variant === 'UPDATE') {
-         updatePet(e);
-      }
-   };
+   const petModalComponent = usePetModalComponent({
+      pet,
+      variant,
+      onClose,
+   });
 
    return (
       <AnimatePresence>
@@ -87,13 +46,13 @@ export function PetModal({
                      <div className='relative mb-10 flex items-center gap-6'>
                         <div className='flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-r from-cyan-400 to-blue-700'>
                            <img
-                              src={`icons/${variants[variant].icon}.svg`}
+                              src={`icons/${petModalComponent.variants[variant].icon}.svg`}
                               alt=''
                               className='h-8 w-8'
                            />
                         </div>
                         <h2 className='text-[30px] font-bold text-white'>
-                           {variants[variant].name}
+                           {petModalComponent.variants[variant].name}
                         </h2>
                         <img
                            src='icons/close.svg'
@@ -105,7 +64,7 @@ export function PetModal({
 
                      <form
                         className='mb-10 flex flex-col gap-8'
-                        onSubmit={handleSubmit}>
+                        onSubmit={petModalComponent.handleSubmit}>
                         <div className='flex flex-col gap-8 md:flex-row'>
                            <div className='flex flex-col gap-3.5'>
                               <Input
@@ -183,16 +142,16 @@ export function PetModal({
                            </Button>
                            <Button
                               isLoading={
-                                 isPending ||
-                                 isPendingUpdatePet ||
-                                 isPendingDeletePet
+                                 petModalComponent.isPendingCreatePet ||
+                                 petModalComponent.isPendingUpdatePet ||
+                                 petModalComponent.isPendingDeletePet
                               }
                               type='submit'
-                              icon={variants[variant].icon}
+                              icon={petModalComponent.variants[variant].icon}
                               variant={
                                  variant === 'DELETE' ? 'TERTIARY' : 'PRIMARY'
                               }>
-                              {variants[variant].name}
+                              {petModalComponent.variants[variant].name}
                            </Button>
                         </div>
                      </form>
