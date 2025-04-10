@@ -11,9 +11,10 @@ import { formatPhoneNumber } from '@/utils/format-phone-number';
 type PetAccordionProps = {
    pet: IPet;
    onEdit: () => void;
+   onDelete: () => void;
 };
 
-export function PetAccordion({ pet, onEdit }: PetAccordionProps) {
+export function PetAccordion({ pet, onEdit, onDelete }: PetAccordionProps) {
    const [isOpen, setIsOpen] = useState(false);
 
    return (
@@ -110,7 +111,11 @@ export function PetAccordion({ pet, onEdit }: PetAccordionProps) {
                         onClick={onEdit}>
                         Editar
                      </Button>
-                     <Button icon='trash'>Remover</Button>
+                     <Button
+                        icon='trash'
+                        onClick={onDelete}>
+                        Remover
+                     </Button>
                   </div>
                </motion.div>
             )}

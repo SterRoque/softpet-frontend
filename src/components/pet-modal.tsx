@@ -11,6 +11,7 @@ import { HttpStatusCode } from 'axios';
 import { formatPhoneInput } from '@/utils/format-phone-input';
 import { useUpdatePet } from '@/hooks/useUpdatePet';
 import { IPet } from '@/interfaces/pet-interface';
+import { useDeletePet } from '@/hooks/useDeletePet';
 
 type PetModalProps = {
    isOpen: boolean;
@@ -29,33 +30,43 @@ export function PetModal({
    const { updatePet, isPendingUpdatePet, dataUpdatePet } = useUpdatePet(
       pet?.id,
    );
+   const { deletePet, isPendingDeletePet, dataDeletePet } = useDeletePet();
 
    const variants = {
       CREATE: {
          name: 'Cadastrar',
          icon: 'add',
-         action: createPet,
       },
       UPDATE: {
          name: 'Editar',
          icon: 'edit',
-         action: updatePet,
       },
       DELETE: {
          name: 'Remover',
          icon: 'trash',
-         action: () => {},
       },
    };
 
    useEffect(() => {
       if (
          data?.status === HttpStatusCode.Created ||
-         dataUpdatePet?.status === HttpStatusCode.Ok
+         dataUpdatePet?.status === HttpStatusCode.Ok ||
+         dataDeletePet?.status === HttpStatusCode.Ok
       ) {
          onClose?.();
       }
-   }, [data?.status, dataUpdatePet?.status]);
+   }, [data?.status, dataUpdatePet?.status, dataDeletePet?.status]);
+
+   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      if (variant === 'DELETE' && pet?.id) {
+         deletePet(pet.id);
+      } else if (variant === 'CREATE') {
+         createPet(e);
+      } else if (variant === 'UPDATE') {
+         updatePet(e);
+      }
+   };
 
    return (
       <AnimatePresence>
@@ -94,7 +105,7 @@ export function PetModal({
 
                      <form
                         className='mb-10 flex flex-col gap-8'
-                        onSubmit={variants[variant].action}>
+                        onSubmit={handleSubmit}>
                         <div className='flex flex-col gap-8 md:flex-row'>
                            <div className='flex flex-col gap-3.5'>
                               <Input
@@ -171,7 +182,11 @@ export function PetModal({
                               Voltar
                            </Button>
                            <Button
-                              isLoading={isPending || isPendingUpdatePet}
+                              isLoading={
+                                 isPending ||
+                                 isPendingUpdatePet ||
+                                 isPendingDeletePet
+                              }
                               type='submit'
                               icon={variants[variant].icon}
                               variant={

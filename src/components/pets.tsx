@@ -41,6 +41,9 @@ export function Pets({ pets = [] }: IPetsProps) {
                      pet={pet}
                      key={pet.id}
                      onEdit={() => setCurrentPet(pet)}
+                     onDelete={() => {
+                        setCurrentPet(pet);
+                     }}
                   />
                ))}
             </div>
@@ -62,6 +65,12 @@ export function Pets({ pets = [] }: IPetsProps) {
             isOpen={currentPet !== null}
             onClose={() => setCurrentPet(null)}
             variant='UPDATE'
+            pet={currentPet}
+         />
+         <PetModal
+            isOpen={currentPet !== null}
+            onClose={() => setCurrentPet(null)}
+            variant='DELETE'
             pet={currentPet}
          />
       </main>
