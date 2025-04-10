@@ -5,8 +5,9 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { Button } from './button';
 import { Input } from './input';
 import { InputSpecies } from './input-species';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useCreatePet } from '@/hooks/useCreatePet';
+import { HttpStatusCode } from 'axios';
 
 type PetModalProps = {
    isOpen: boolean;
@@ -36,7 +37,13 @@ export function PetModal({
       },
    };
 
-   const { createPet, isPending } = useCreatePet();
+   const { createPet, isPending, data } = useCreatePet();
+
+   useEffect(() => {
+      if (data?.status === HttpStatusCode.Created) {
+         onClose?.();
+      }
+   }, [data?.status]);
 
    return (
       <AnimatePresence>
@@ -81,6 +88,7 @@ export function PetModal({
                               <Input
                                  name='pet_name'
                                  label='Nome'
+                                 required
                                  icon='collar'
                                  placeholder='Nome Sobrenome'
                                  disabled={variant === 'DELETE'}
@@ -88,6 +96,7 @@ export function PetModal({
                               <Input
                                  name='owner_name'
                                  label='Dono'
+                                 required
                                  icon='user'
                                  placeholder='Nome Sobrenome'
                                  disabled={variant === 'DELETE'}
@@ -95,6 +104,7 @@ export function PetModal({
                               <Input
                                  name='owner_phone'
                                  label='Telefone'
+                                 required
                                  icon='phone'
                                  placeholder='(00) 0 0000-0000'
                                  disabled={variant === 'DELETE'}
@@ -111,13 +121,15 @@ export function PetModal({
                               <Input
                                  name='pet_breed'
                                  label='Raça'
+                                 required
                                  icon='dna'
                                  placeholder='Raça'
                                  disabled={variant === 'DELETE'}
                               />
                               <Input
-                                 name='pet_birth_date'
+                                 name='pet_birthday_date'
                                  label='Data de Nascimento'
+                                 required
                                  icon='calendar'
                                  type='date'
                                  disabled={variant === 'DELETE'}
