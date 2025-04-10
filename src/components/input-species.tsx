@@ -1,22 +1,22 @@
 import { cn } from '@/utils/cn';
+import { useState } from 'react';
 
 export type TSpecies = 'DOG' | 'CAT';
 
 type InputSpeciesProps = {
-   value?: TSpecies;
-   onChange: (value: TSpecies) => void;
    icon?: string;
    label?: string;
    name?: string;
+   defaultValue?: TSpecies;
 };
 
 export function InputSpecies({
-   value = 'DOG',
-   onChange,
    icon,
    label,
    name,
+   defaultValue,
 }: InputSpeciesProps) {
+   const [selected, setSelected] = useState<TSpecies>(defaultValue || 'DOG');
    return (
       <div>
          <div className={cn('mb-2 flex items-center gap-2')}>
@@ -34,11 +34,11 @@ export function InputSpecies({
             <div
                className={cn(
                   'flex h-[39px] w-1/2 cursor-pointer items-center gap-2 rounded-[10px] border-[3px] border-gray-700 bg-transparent px-3 text-gray-700',
-                  value === 'DOG' && 'border-white text-white',
+                  selected === 'DOG' && 'border-white text-white',
                )}
-               onClick={() => onChange('DOG')}>
+               onClick={() => setSelected('DOG')}>
                <img
-                  src={`icons/${value === 'DOG' ? 'radio-selected' : 'radio-no-selected'}.svg`}
+                  src={`icons/${selected === 'DOG' ? 'radio-selected' : 'radio-no-selected'}.svg`}
                   alt=''
                   className='h-3 w-3'
                />
@@ -47,11 +47,11 @@ export function InputSpecies({
             <div
                className={cn(
                   'text-gray-700focus-visible:border-white flex h-[39px] w-1/2 cursor-pointer items-center gap-2 rounded-[10px] border-[3px] border-gray-700 bg-transparent px-3 text-gray-700',
-                  value === 'CAT' && 'border-white text-white',
+                  selected === 'CAT' && 'border-white text-white',
                )}
-               onClick={() => onChange('CAT')}>
+               onClick={() => setSelected('CAT')}>
                <img
-                  src={`icons/${value === 'CAT' ? 'radio-selected' : 'radio-no-selected'}.svg`}
+                  src={`icons/${selected === 'CAT' ? 'radio-selected' : 'radio-no-selected'}.svg`}
                   alt=''
                   className='h-3 w-3'
                />
@@ -60,7 +60,7 @@ export function InputSpecies({
             <input
                type='hidden'
                name={name}
-               value={value}
+               value={selected}
             />
          </div>
       </div>
