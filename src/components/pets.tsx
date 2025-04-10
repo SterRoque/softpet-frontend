@@ -3,23 +3,16 @@ import { Button } from './button';
 import { Pagination } from './pagination';
 import { PetAccordion } from './pet-accordion';
 import { PetModal } from './pet-modal';
-import { useEffect, useState } from 'react';
 import { SearchBar } from './search-bar';
 import { IPet } from '@/interfaces/pet-interface';
-import { usePetStore } from '@/stores/pets-store';
+import { usePetsComponent } from '@/hooks/usePetsComponent';
 
 interface IPetsProps {
    pets: IPet[];
 }
 
 export function Pets({ pets = [] }: IPetsProps) {
-   const [isOpenPetModal, setIsOpenPetModal] = useState(false);
-   const [currentPet, setCurrentPet] = useState<IPet | null>(null);
-   const { pets: petsState, setPets } = usePetStore();
-
-   useEffect(() => {
-      setPets(pets);
-   }, [pets]);
+   const petsComponent = usePetsComponent(pets);
 
    return (
       <main className='relative min-h-full'>
@@ -29,21 +22,19 @@ export function Pets({ pets = [] }: IPetsProps) {
                <div className='w-full md:w-1/6'>
                   <Button
                      icon='add'
-                     onClick={() => setIsOpenPetModal(true)}>
+                     onClick={petsComponent.handleOpenCreateModal}>
                      Cadastrar
                   </Button>
                </div>
             </div>
 
             <div className='flex flex-col gap-4 md:grid md:grid-cols-3 md:grid-rows-3 lg:grid lg:grid-cols-4 lg:grid-rows-4'>
-               {petsState.map((pet) => (
+               {petsComponent.petsState.map((pet) => (
                   <PetAccordion
                      pet={pet}
                      key={pet.id}
-                     onEdit={() => setCurrentPet(pet)}
-                     onDelete={() => {
-                        setCurrentPet(pet);
-                     }}
+                     onEdit={() => petsComponent.handleOpenUpdateModal(pet)}
+                     onDelete={() => petsComponent.handleOpenDeleteModal(pet)}
                   />
                ))}
             </div>
@@ -57,21 +48,21 @@ export function Pets({ pets = [] }: IPetsProps) {
          </div>
 
          <PetModal
-            isOpen={isOpenPetModal}
-            onClose={() => setIsOpenPetModal(false)}
+            isOpen={petsComponent.isOpenCreateModal}
+            onClose={petsComponent.handleCloseCreateModal}
             variant='CREATE'
          />
          <PetModal
-            isOpen={currentPet !== null}
-            onClose={() => setCurrentPet(null)}
+            isOpen={petsComponent.isOpenUpdateModal}
+            onClose={petsComponent.handleCloseUpdateModal}
             variant='UPDATE'
-            pet={currentPet}
+            pet={petsComponent.currentPet}
          />
          <PetModal
-            isOpen={currentPet !== null}
-            onClose={() => setCurrentPet(null)}
+            isOpen={petsComponent.isOpenDeleteModal}
+            onClose={petsComponent.handleCloseDeleteModal}
             variant='DELETE'
-            pet={currentPet}
+            pet={petsComponent.currentPet}
          />
       </main>
    );
