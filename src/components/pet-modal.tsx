@@ -8,6 +8,8 @@ import { InputSpecies } from './input-species';
 import { useEffect, useState } from 'react';
 import { useCreatePet } from '@/hooks/useCreatePet';
 import { HttpStatusCode } from 'axios';
+import { formatPhoneNumber } from '@/utils/format-phone-number';
+import { formatPhoneInput } from '@/utils/format-phone-input';
 
 type PetModalProps = {
    isOpen: boolean;
@@ -21,6 +23,12 @@ export function PetModal({
    variant = 'CREATE',
 }: PetModalProps) {
    const [tempSpecies, setTempSpecies] = useState<any>('DOG');
+   const [phone, setPhone] = useState('');
+
+   const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      const formattedPhone = formatPhoneInput(e.target.value);
+      setPhone(formattedPhone);
+   };
 
    const variants = {
       CREATE: {
@@ -107,6 +115,8 @@ export function PetModal({
                                  required
                                  icon='phone'
                                  placeholder='(00) 0 0000-0000'
+                                 value={phone}
+                                 onChange={handlePhoneChange}
                                  disabled={variant === 'DELETE'}
                               />
                            </div>
