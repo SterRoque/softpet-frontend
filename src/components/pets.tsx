@@ -14,6 +14,7 @@ interface IPetsProps {
 
 export function Pets({ pets = [] }: IPetsProps) {
    const [isOpenPetModal, setIsOpenPetModal] = useState(false);
+   const [currentPet, setCurrentPet] = useState<IPet | null>(null);
    const { pets: petsState, setPets } = usePetStore();
 
    useEffect(() => {
@@ -39,6 +40,7 @@ export function Pets({ pets = [] }: IPetsProps) {
                   <PetAccordion
                      pet={pet}
                      key={pet.id}
+                     onEdit={() => setCurrentPet(pet)}
                   />
                ))}
             </div>
@@ -54,6 +56,13 @@ export function Pets({ pets = [] }: IPetsProps) {
          <PetModal
             isOpen={isOpenPetModal}
             onClose={() => setIsOpenPetModal(false)}
+            variant='CREATE'
+         />
+         <PetModal
+            isOpen={currentPet !== null}
+            onClose={() => setCurrentPet(null)}
+            variant='UPDATE'
+            pet={currentPet}
          />
       </main>
    );
