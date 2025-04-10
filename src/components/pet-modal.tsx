@@ -1,9 +1,12 @@
+'use client';
+
 import { cn } from '@/utils/cn';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Button } from './button';
 import { Input } from './input';
 import { InputSpecies } from './input-species';
 import { useState } from 'react';
+import { useCreatePet } from '@/hooks/useCreatePet';
 
 type PetModalProps = {
    isOpen: boolean;
@@ -32,6 +35,8 @@ export function PetModal({
          icon: 'trash',
       },
    };
+
+   const { createPet, isPending } = useCreatePet();
 
    return (
       <AnimatePresence>
@@ -68,73 +73,80 @@ export function PetModal({
                         />
                      </div>
 
-                     <div className='mb-10 flex flex-col gap-8 md:flex-row'>
-                        <div className='flex flex-col gap-3.5'>
-                           <Input
-                              name='name'
-                              label='Nome'
-                              icon='collar'
-                              placeholder='Nome Sobrenome'
-                              disabled={variant === 'DELETE'}
-                           />
-                           <Input
-                              name='owner'
-                              label='Dono'
-                              icon='user'
-                              placeholder='Nome Sobrenome'
-                              disabled={variant === 'DELETE'}
-                           />
-                           <Input
-                              name='phone'
-                              label='Telefone'
-                              icon='phone'
-                              placeholder='(00) 0 0000-0000'
-                              disabled={variant === 'DELETE'}
-                           />
+                     <form
+                        className='mb-10 flex flex-col gap-8'
+                        onSubmit={createPet}>
+                        <div className='flex flex-col gap-8 md:flex-row'>
+                           <div className='flex flex-col gap-3.5'>
+                              <Input
+                                 name='pet_name'
+                                 label='Nome'
+                                 icon='collar'
+                                 placeholder='Nome Sobrenome'
+                                 disabled={variant === 'DELETE'}
+                              />
+                              <Input
+                                 name='owner_name'
+                                 label='Dono'
+                                 icon='user'
+                                 placeholder='Nome Sobrenome'
+                                 disabled={variant === 'DELETE'}
+                              />
+                              <Input
+                                 name='owner_phone'
+                                 label='Telefone'
+                                 icon='phone'
+                                 placeholder='(00) 0 0000-0000'
+                                 disabled={variant === 'DELETE'}
+                              />
+                           </div>
+                           <div className='flex flex-col gap-3.5'>
+                              <InputSpecies
+                                 name='pet_species'
+                                 value={tempSpecies}
+                                 onChange={(v) => setTempSpecies(v)}
+                                 icon='dna'
+                                 label='Animal'
+                              />
+                              <Input
+                                 name='pet_breed'
+                                 label='Raça'
+                                 icon='dna'
+                                 placeholder='Raça'
+                                 disabled={variant === 'DELETE'}
+                              />
+                              <Input
+                                 name='pet_birth_date'
+                                 label='Data de Nascimento'
+                                 icon='calendar'
+                                 type='date'
+                                 disabled={variant === 'DELETE'}
+                              />
+                           </div>
                         </div>
-                        <div className='flex flex-col gap-3.5'>
-                           <InputSpecies
-                              value={tempSpecies}
-                              onChange={(v) => setTempSpecies(v)}
-                              icon='dna'
-                              label='Animal'
-                           />
-                           <Input
-                              name='breed'
-                              label='Raça'
-                              icon='dna'
-                              placeholder='Raça'
-                              disabled={variant === 'DELETE'}
-                           />
-                           <Input
-                              name='birthDate'
-                              label='Data de Nascimento'
-                              icon='calendar'
-                              type='date'
-                              disabled={variant === 'DELETE'}
-                           />
+                        {variant === 'DELETE' && (
+                           <h1 className='text-center font-bold text-white'>
+                              Tem certeza que deseja remover esse pet?
+                           </h1>
+                        )}
+                        <div className='mt-10 flex gap-8'>
+                           <Button
+                              onClick={onClose}
+                              icon='arrow-back'
+                              variant='SECONDARY'>
+                              Voltar
+                           </Button>
+                           <Button
+                              isLoading={isPending}
+                              type='submit'
+                              icon={variants[variant].icon}
+                              variant={
+                                 variant === 'DELETE' ? 'TERTIARY' : 'PRIMARY'
+                              }>
+                              {variants[variant].name}
+                           </Button>
                         </div>
-                     </div>
-                     {variant === 'DELETE' && (
-                        <h1 className='text-center font-bold text-white'>
-                           Tem certeza que deseja remover esse pet?
-                        </h1>
-                     )}
-                     <div className='mt-10 flex gap-8'>
-                        <Button
-                           onClick={onClose}
-                           icon='arrow-back'
-                           variant='SECONDARY'>
-                           Voltar
-                        </Button>
-                        <Button
-                           icon={variants[variant].icon}
-                           variant={
-                              variant === 'DELETE' ? 'TERTIARY' : 'PRIMARY'
-                           }>
-                           {variants[variant].name}
-                        </Button>
-                     </div>
+                     </form>
                   </div>
                </motion.div>
             </div>
