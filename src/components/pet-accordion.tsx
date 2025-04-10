@@ -10,9 +10,10 @@ import { formatPhoneNumber } from '@/utils/format-phone-number';
 
 type PetAccordionProps = {
    pet: IPet;
+   onEdit: () => void;
 };
 
-export function PetAccordion({ pet }: PetAccordionProps) {
+export function PetAccordion({ pet, onEdit }: PetAccordionProps) {
    const [isOpen, setIsOpen] = useState(false);
 
    return (
@@ -28,7 +29,7 @@ export function PetAccordion({ pet }: PetAccordionProps) {
                <div>
                   <div className='flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-r from-cyan-400 to-blue-700'>
                      <img
-                        src='icons/cat.svg'
+                        src={`icons/${pet.species.toLowerCase()}.svg`}
                         alt=''
                      />
                   </div>
@@ -49,7 +50,7 @@ export function PetAccordion({ pet }: PetAccordionProps) {
                         className='h-4 w-4'
                      />
                      <span className='max-h-[20px] max-w-full min-w-[7.1875rem] truncate text-sm 2xl:text-base'>
-                        {pet.owner.name}
+                        {pet.owner?.name}
                      </span>
                   </div>
                </div>
@@ -105,7 +106,8 @@ export function PetAccordion({ pet }: PetAccordionProps) {
                   <div className='mb-[15px] flex w-full flex-col gap-3 px-[15px]'>
                      <Button
                         variant='SECONDARY'
-                        icon='edit-second'>
+                        icon='edit-second'
+                        onClick={onEdit}>
                         Editar
                      </Button>
                      <Button icon='trash'>Remover</Button>
