@@ -5,53 +5,57 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { Button } from './button';
 import { Input } from './input';
 import { InputSpecies } from './input-species';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useCreatePet } from '@/hooks/useCreatePet';
 import { HttpStatusCode } from 'axios';
-import { formatPhoneNumber } from '@/utils/format-phone-number';
 import { formatPhoneInput } from '@/utils/format-phone-input';
+import { useUpdatePet } from '@/hooks/useUpdatePet';
+import { IPet } from '@/interfaces/pet-interface';
 
 type PetModalProps = {
    isOpen: boolean;
    onClose?: () => void;
    variant?: 'CREATE' | 'UPDATE' | 'DELETE';
+   pet?: IPet | null;
 };
 
 export function PetModal({
    isOpen,
    onClose,
    variant = 'CREATE',
+   pet,
 }: PetModalProps) {
-   const [tempSpecies, setTempSpecies] = useState<any>('DOG');
-   const [phone, setPhone] = useState('');
-
-   const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-      const formattedPhone = formatPhoneInput(e.target.value);
-      setPhone(formattedPhone);
-   };
+   const { createPet, isPending, data } = useCreatePet();
+   const { updatePet, isPendingUpdatePet, dataUpdatePet } = useUpdatePet(
+      pet?.id,
+   );
 
    const variants = {
       CREATE: {
          name: 'Cadastrar',
          icon: 'add',
+         action: createPet,
       },
       UPDATE: {
          name: 'Editar',
          icon: 'edit',
+         action: updatePet,
       },
       DELETE: {
          name: 'Remover',
          icon: 'trash',
+         action: () => {},
       },
    };
 
-   const { createPet, isPending, data } = useCreatePet();
-
    useEffect(() => {
-      if (data?.status === HttpStatusCode.Created) {
+      if (
+         data?.status === HttpStatusCode.Created ||
+         dataUpdatePet?.status === HttpStatusCode.Ok
+      ) {
          onClose?.();
       }
-   }, [data?.status]);
+   }, [data?.status, dataUpdatePet?.status]);
 
    return (
       <AnimatePresence>
@@ -90,7 +94,7 @@ export function PetModal({
 
                      <form
                         className='mb-10 flex flex-col gap-8'
-                        onSubmit={createPet}>
+                        onSubmit={variants[variant].action}>
                         <div className='flex flex-col gap-8 md:flex-row'>
                            <div className='flex flex-col gap-3.5'>
                               <Input
@@ -100,6 +104,7 @@ export function PetModal({
                                  icon='collar'
                                  placeholder='Nome Sobrenome'
                                  disabled={variant === 'DELETE'}
+                                 defaultValue={pet?.name}
                               />
                               <Input
                                  name='owner_name'
@@ -108,6 +113,7 @@ export function PetModal({
                                  icon='user'
                                  placeholder='Nome Sobrenome'
                                  disabled={variant === 'DELETE'}
+                                 defaultValue={pet?.owner?.name}
                               />
                               <Input
                                  name='owner_phone'
@@ -115,18 +121,17 @@ export function PetModal({
                                  required
                                  icon='phone'
                                  placeholder='(00) 0 0000-0000'
-                                 value={phone}
-                                 onChange={handlePhoneChange}
+                                 type='tel'
+                                 initialValue={pet?.owner?.phone}
                                  disabled={variant === 'DELETE'}
                               />
                            </div>
                            <div className='flex flex-col gap-3.5'>
                               <InputSpecies
                                  name='pet_species'
-                                 value={tempSpecies}
-                                 onChange={(v) => setTempSpecies(v)}
                                  icon='dna'
                                  label='Animal'
+                                 defaultValue={pet?.species}
                               />
                               <Input
                                  name='pet_breed'
@@ -135,6 +140,7 @@ export function PetModal({
                                  icon='dna'
                                  placeholder='Raça'
                                  disabled={variant === 'DELETE'}
+                                 defaultValue={pet?.breed}
                               />
                               <Input
                                  name='pet_birthday_date'
@@ -143,6 +149,11 @@ export function PetModal({
                                  icon='calendar'
                                  type='date'
                                  disabled={variant === 'DELETE'}
+                                 defaultValue={
+                                    pet?.birthday_date
+                                       ? pet.birthday_date.split('T')[0]
+                                       : undefined
+                                 }
                               />
                            </div>
                         </div>
@@ -155,11 +166,12 @@ export function PetModal({
                            <Button
                               onClick={onClose}
                               icon='arrow-back'
+                              type='button'
                               variant='SECONDARY'>
                               Voltar
                            </Button>
                            <Button
-                              isLoading={isPending}
+                              isLoading={isPending || isPendingUpdatePet}
                               type='submit'
                               icon={variants[variant].icon}
                               variant={
