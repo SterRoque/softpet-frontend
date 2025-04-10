@@ -1,11 +1,13 @@
 'use client';
 import { cn } from '@/utils/cn';
-import { InputHTMLAttributes, useRef } from 'react';
+import { formatPhoneInput } from '@/utils/format-phone-input';
+import { InputHTMLAttributes, useEffect, useRef, useState } from 'react';
 
 type InputProps = InputHTMLAttributes<HTMLInputElement> & {
    label?: string;
    icon?: string;
    error?: string;
+   initialValue?: string;
 };
 
 export function Input({
@@ -13,10 +15,26 @@ export function Input({
    icon,
    type,
    disabled,
+   value,
+   onChange,
    error,
+   initialValue,
    ...rest
 }: InputProps) {
    const inputRef = useRef<HTMLInputElement>(null);
+
+   const [phone, setPhone] = useState('');
+
+   const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      const formattedPhone = formatPhoneInput(e.target.value);
+      setPhone(formattedPhone);
+   };
+
+   useEffect(() => {
+      if (initialValue && type === 'tel') {
+         setPhone(initialValue);
+      }
+   }, [initialValue]);
 
    return (
       <div className='flex w-full flex-col'>
@@ -31,6 +49,8 @@ export function Input({
             <label className='text-base text-white'>{label}</label>
          </div>
          <input
+            value={type === 'tel' && initialValue ? phone : value}
+            onChange={type === 'tel' ? handlePhoneChange : onChange}
             ref={inputRef}
             type={type}
             disabled={disabled}
