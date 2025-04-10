@@ -51,7 +51,7 @@ export function useCreatePet() {
 
    return {
       createPet,
-      isPending,
-      data,
+      isPendingCreatePet: isPending,
+      dataCreatePet: data,
    };
 }
