@@ -5,7 +5,9 @@ body {
       radial-gradient(circle at -10% 5%, #00204f 5%, transparent 38%),
       radial-gradient(circle at 95% 140%, #0066ff -80%, transparent 30%);
    background-color: #00060f;
+   background-attachment: fixed;
    min-height: 100vh;
+   height: 100%;
    margin: 0;
 }
 
