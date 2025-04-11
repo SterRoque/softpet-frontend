@@ -6,19 +6,15 @@ import { useCallback, useEffect } from 'react';
 import { useServerAction } from 'zsa-react';
 
 type UseGetPetsProps = {
-   search?: string;
    notRenderGetPets?: boolean;
 };
 
-export function useGetPets({
-   search,
-   notRenderGetPets = false,
-}: UseGetPetsProps) {
+export function useGetPets({ notRenderGetPets = false }: UseGetPetsProps) {
    const { execute: executeGetPetsAction, isPending } =
       useServerAction(getPetsAction);
 
    const { setPets } = usePetStore();
-   const { page, setTotalPages } = usePaginationStore();
+   const { page, setTotalPages, search } = usePaginationStore();
 
    const getPets = useCallback(async () => {
       const [response] = await executeGetPetsAction({ page, search });
@@ -37,7 +33,7 @@ export function useGetPets({
       if (!notRenderGetPets) {
          getPets();
       }
-   }, [page, search, notRenderGetPets]);
+   }, [page, notRenderGetPets]);
 
    return {
       isPendingGetPets: isPending,

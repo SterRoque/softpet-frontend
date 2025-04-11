@@ -10,15 +10,17 @@ import { usePetsComponent } from '@/hooks/usePetsComponent';
 export function Pets() {
    const petsComponent = usePetsComponent();
 
-   const { isPendingGetPets } = useGetPets({
-      search: '',
-   });
+   const { isPendingGetPets } = useGetPets({});
 
    return (
       <main className='relative min-h-full'>
          <div className='h-[calc(100svh-5rem)] w-full px-8 md:px-[55px]'>
             <div className='mb-9 flex flex-col items-center gap-[22px] pt-2 md:flex-row'>
-               <SearchBar />
+               <SearchBar
+                  value={petsComponent.search}
+                  onChange={petsComponent.handleChange}
+                  onSearch={petsComponent.handleSearch}
+               />
                <div className='w-full md:w-1/6'>
                   <Button
                      icon='add'
