@@ -22,7 +22,7 @@ export default function RegisterPage() {
                </h1>
 
                <div className='flex flex-col gap-3.5'>
-                  <div className='flex gap-[30px]'>
+                  <div className='flex flex-col gap-[30px] md:flex-row'>
                      <Input
                         name='first_name'
                         label='Nome'
@@ -36,7 +36,7 @@ export default function RegisterPage() {
                         required
                      />
                   </div>
-                  <div className='flex gap-[30px]'>
+                  <div className='flex flex-col gap-[30px] md:flex-row'>
                      <Input
                         name='email'
                         label='Email'
