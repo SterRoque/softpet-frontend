@@ -4,6 +4,7 @@ import { Button } from '@/components/button';
 import { Input } from '@/components/input';
 import { useAuthAdmin } from '@/hooks/useAuthAdmin';
 import { cn } from '@/utils/cn';
+import Link from 'next/link';
 
 export default function LoginPage() {
    const { authAdmin } = useAuthAdmin();
@@ -21,7 +22,7 @@ export default function LoginPage() {
                   alt=''
                />
 
-               <div className='mt-14 flex gap-[30px]'>
+               <div className='mt-14 flex flex-col'>
                   <div className='flex flex-col gap-3.5'>
                      <Input
                         name='email'
@@ -40,8 +41,16 @@ export default function LoginPage() {
                   </div>
                </div>
 
-               <div className='mt-14 w-full'>
+               <div className='mt-10 w-full'>
                   <Button>Entrar</Button>
+                  <p className='mt-6 text-xs text-white'>
+                     Ainda não tem uma conta?{' '}
+                     <Link
+                        href={'/register'}
+                        className='font-semibold text-cyan-400'>
+                        Cadastre-se
+                     </Link>
+                  </p>
                </div>
             </div>
          </form>
