@@ -1,18 +1,25 @@
 import { Dispatch, SetStateAction } from 'react';
 
 type PaginationProps = {
-   page?: number;
-   setPage?: Dispatch<SetStateAction<number>>;
+   page: number;
+   handleBackPage: () => void;
+   handleNextPage: () => void;
    totalPages?: number;
 };
 
-export function Pagination({ page, setPage, totalPages }: PaginationProps) {
+export function Pagination({
+   page,
+   handleBackPage,
+   handleNextPage,
+   totalPages,
+}: PaginationProps) {
    return (
       <div className='flex gap-2'>
          <img
             src='icons/arrow-left.svg'
             alt=''
             className='cursor-pointer'
+            onClick={handleBackPage}
          />
          <span className='font-bold text-white'>
             {page} de {totalPages}
@@ -21,6 +28,7 @@ export function Pagination({ page, setPage, totalPages }: PaginationProps) {
             src='icons/arrow-right.svg'
             alt=''
             className='cursor-pointer'
+            onClick={handleNextPage}
          />
       </div>
    );

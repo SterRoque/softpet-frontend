@@ -1,4 +1,5 @@
 import { createPetAction } from '@/actions/pets-actions';
+import { usePaginationStore } from '@/stores/pagination-store';
 import { usePetStore } from '@/stores/pets-store';
 import { HttpStatusCode } from 'axios';
 import { FormEvent, useCallback } from 'react';
@@ -8,12 +9,12 @@ import { useServerAction } from 'zsa-react';
 export function useCreatePet() {
    const {
       execute: executeCreatePetAction,
-      error: errorZod,
       data,
       isPending,
    } = useServerAction(createPetAction);
 
    const { pets, setPets } = usePetStore();
+   const { totalPages, setTotalPages } = usePaginationStore();
 
    const createPet = useCallback(
       async (event: FormEvent<HTMLFormElement>) => {
@@ -39,7 +40,14 @@ export function useCreatePet() {
 
          if (response?.status === HttpStatusCode.Created) {
             toast.success('Pet cadastrado com sucesso!');
-            setPets([response?.data, ...pets]);
+            const updatedPets = [response?.data, ...pets];
+
+            if (updatedPets.length >= 16) {
+               updatedPets.pop();
+               setTotalPages(totalPages + 1);
+            }
+
+            setPets(updatedPets);
          }
       },
       [pets, setPets],
