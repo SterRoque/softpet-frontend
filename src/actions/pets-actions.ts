@@ -2,6 +2,7 @@
 import {
    createPetService,
    deletePetService,
+   getPetsService,
    updatePetService,
 } from '@/services/pets-service';
 import { getCurrentAdminService } from '@/services/admins-service';
@@ -59,6 +60,24 @@ export const deletePetAction = createServerAction()
    .handler(async ({ input }) => {
       try {
          const response = await deletePetService(input.id);
+
+         return {
+            data: response?.data,
+            status: response?.status,
+         };
+      } catch (error: any) {
+         return {
+            error: error?.response?.data,
+            status: error?.response?.status ?? 500,
+         };
+      }
+   });
+
+export const getPetsAction = createServerAction()
+   .input(z.object({ page: z.number(), search: z.string().optional() }))
+   .handler(async ({ input }) => {
+      try {
+         const response = await getPetsService(input);
 
          return {
             data: response?.data,
