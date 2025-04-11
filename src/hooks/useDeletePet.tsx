@@ -16,7 +16,6 @@ export function useDeletePet() {
 
    const { pets, setPets } = usePetStore();
    const { getPets } = useGetPets({
-      search: '',
       notRenderGetPets: true,
    });
    const { page } = usePaginationStore();
