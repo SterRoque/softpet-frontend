@@ -6,6 +6,8 @@ type TPaginationStore = {
    setPage: (totalPages: number) => void;
    totalPages: number;
    setTotalPages: (totalPages: number) => void;
+   search: string;
+   setSearch: (search: string) => void;
 };
 
 export const usePaginationStore = create<TPaginationStore>()((set) => ({
@@ -13,4 +15,6 @@ export const usePaginationStore = create<TPaginationStore>()((set) => ({
    setPage: (newPage) => set({ page: newPage }),
    totalPages: 0,
    setTotalPages: (newTotalPages) => set({ totalPages: newTotalPages }),
+   search: '',
+   setSearch: (text) => set({ search: text }),
 }));

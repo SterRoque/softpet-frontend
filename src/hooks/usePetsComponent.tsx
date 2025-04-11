@@ -1,7 +1,8 @@
 import { IPet } from '@/interfaces/pet-interface';
 import { usePaginationStore } from '@/stores/pagination-store';
 import { usePetStore } from '@/stores/pets-store';
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
+import { useGetPets } from './useGetPets';
 
 export function usePetsComponent() {
    const [isOpenCreateModal, setIsOpenCreateModal] = useState(false);
@@ -10,8 +11,20 @@ export function usePetsComponent() {
    const [currentPet, setCurrentPet] = useState<IPet | null>(null);
 
    const { pets } = usePetStore();
+   const { page, setPage, totalPages, search, setSearch } =
+      usePaginationStore();
 
-   const { page, setPage, totalPages } = usePaginationStore();
+   const { getPets } = useGetPets({
+      notRenderGetPets: true,
+   });
+
+   function handleSearch() {
+      setPage(1);
+      getPets();
+   }
+   function handleChange(event: ChangeEvent<HTMLInputElement>) {
+      setSearch(event.target.value);
+   }
 
    const handleBackPage = () => {
       if (page > 1) {
@@ -69,5 +82,8 @@ export function usePetsComponent() {
       totalPages,
       handleBackPage,
       handleNextPage,
+      handleSearch,
+      handleChange,
+      search,
    };
 }
