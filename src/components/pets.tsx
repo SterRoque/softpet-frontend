@@ -1,18 +1,18 @@
 'use client';
+import { useGetPets } from '@/hooks/useGetPets';
 import { Button } from './button';
 import { Pagination } from './pagination';
 import { PetAccordion } from './pet-accordion';
 import { PetModal } from './pet-modal';
 import { SearchBar } from './search-bar';
-import { IPet } from '@/interfaces/pet-interface';
 import { usePetsComponent } from '@/hooks/usePetsComponent';
 
-interface IPetsProps {
-   pets: IPet[];
-}
+export function Pets() {
+   const petsComponent = usePetsComponent();
 
-export function Pets({ pets = [] }: IPetsProps) {
-   const petsComponent = usePetsComponent(pets);
+   const { isPendingGetPets } = useGetPets({
+      search: '',
+   });
 
    return (
       <main className='relative min-h-full'>
@@ -29,7 +29,7 @@ export function Pets({ pets = [] }: IPetsProps) {
             </div>
 
             <div className='flex flex-col gap-4 md:grid md:grid-cols-3 md:grid-rows-3 lg:grid lg:grid-cols-4 lg:grid-rows-4'>
-               {petsComponent.petsState.map((pet) => (
+               {petsComponent.pets.map((pet) => (
                   <PetAccordion
                      pet={pet}
                      key={pet.id}
@@ -41,8 +41,10 @@ export function Pets({ pets = [] }: IPetsProps) {
 
             <div className='absolute right-[55px] bottom-4 hidden md:block'>
                <Pagination
-                  page={1}
-                  totalPages={245}
+                  page={petsComponent.page}
+                  handleBackPage={petsComponent.handleBackPage}
+                  handleNextPage={petsComponent.handleNextPage}
+                  totalPages={petsComponent.totalPages}
                />
             </div>
          </div>
