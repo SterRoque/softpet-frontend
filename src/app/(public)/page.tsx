@@ -16,7 +16,7 @@ export default function LoginPage() {
             className={cn(
                'border-gradient flex w-full max-w-[418px] flex-col justify-center gap-[18px] self-center rounded-[10px] bg-linear-to-tl from-gray-950 to-[#001E4D] shadow-[0_0_30px_#0056E280]',
             )}>
-            <div className='flex flex-col items-center justify-center px-[94px] pt-[60px] pb-[85px]'>
+            <div className='flex flex-col items-center justify-center px-[80px] pt-[60px] pb-[85px] md:px-[94px]'>
                <img
                   src='logo/logo.svg'
                   alt=''
